@@ -1,2 +1,4 @@
 # dotnet-docker
-Repository for OCPL dotnet Dockerfiles
+Repository for OCPL dotnet Dockerfiles that follow our Dockerfile standards.
+
+
