@@ -6,6 +6,7 @@ FROM cbiit/centos7:base
 
 RUN yum -y update \
     && yum -y install \
+		curl \
         autoconf \
 		automake \
 		bzip2 \
