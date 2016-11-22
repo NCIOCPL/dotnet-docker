@@ -4,8 +4,8 @@
 FROM cbiit/centos7:base
 
 
-RUN yum -y update \
-    && yum -y install \
+RUN yum -y update
+RUN yum -y install \
 		tar.x86_64 \
 		gzip.x86_64 \
         autoconf \
