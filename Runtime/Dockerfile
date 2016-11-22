@@ -7,6 +7,7 @@ FROM cbiit/centos7:base
 RUN yum -y update \
     && yum -y install \
         tar.x86_64 \ 
+        gzip.x86_64 \
         libunwind \
         libicu \
     && yum clean all
