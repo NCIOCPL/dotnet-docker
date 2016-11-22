@@ -1,7 +1,7 @@
 ##########################################################
 ### Dockerfile for NCI dotnet core applications based on centos
 
-FROM centos:7
+FROM cbiit/centos7:base
 
 
 RUN yum -y update \
