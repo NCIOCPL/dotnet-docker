@@ -8,6 +8,7 @@ RUN yum -y update \
     && yum -y install \
         tar.x86_64 \ 
         gzip.x86_64 \
+        libuuid \
         libunwind \
         libicu \
     && yum clean all
