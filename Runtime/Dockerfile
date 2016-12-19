@@ -11,6 +11,7 @@ RUN yum -y update \
         libuuid \
         libunwind \
         libicu \
+	unzip \
     && yum clean all
 
 # Work around https://github.com/dotnet/cli/issues/1582 until Docker releases a
