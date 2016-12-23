@@ -47,6 +47,7 @@ RUN yum -y install \
 #		zlib1g-dev \
         libunwind \
         libicu \
+        unzip \
     && yum clean all
 
 # Work around https://github.com/dotnet/cli/issues/1582 until Docker releases a
