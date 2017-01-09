@@ -1,0 +1,29 @@
+/*
+    An easy-to-configure script to automate configuration of the more complex builds.
+*/
+
+def folderName  = 'dotnet-images'    // Main folder where the jbos will be placed.
+
+def GH_REPO_NAME = 'dotnet-docker'    // The project's repository name (as used in the URL).
+def GH_ORGANIZATION_NAME = 'NCIOCPL'   // GitHub Organization name (as used in the URL/userid).
+def DOCKER_USER_KEY = 'NCIOCPL-Docker-User'  // Docker ID of the credential containing the login/password for the automation Docker Hub account.
+
+def PROJECT_NAME = 'dotnet-docker'     // Project name.
+
+def sourceRepository = "$GH_ORGANIZATION_NAME/$GH_REPO_NAME"
+
+
+job("${folderName}/_lower/build") {
+    wrappers {
+        credentialsBinding {
+            usernamePassword('DOCKER_USERNAME', 'DOCKER_PASSWORD', DOCKER_USER_KEY)
+        }
+    }
+    label('!master') // Run anywhere except the master
+    scm {
+        github(sourceRepository)
+    }
+    steps {
+        shell("./tools/build/build.sh")
+    }
+}
