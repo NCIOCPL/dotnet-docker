@@ -7,6 +7,7 @@ def folderName  = 'dotnet-images'    // Main folder where the jbos will be place
 def GH_REPO_NAME = 'dotnet-docker'    // The project's repository name (as used in the URL).
 def GH_ORGANIZATION_NAME = 'NCIOCPL'   // GitHub Organization name (as used in the URL/userid).
 def DOCKER_USER_KEY = 'NCIOCPL-Docker-User'  // Docker ID of the credential containing the login/password for the automation Docker Hub account.
+def DOCKER_REGISTRY_KEY = 'NCIOCPL-Docker-Registry' // Jenkins ID of the string containing the name of the NCI docker registry.
 
 def PROJECT_NAME = 'dotnet-docker'     // Project name.
 
@@ -16,6 +17,7 @@ def sourceRepository = "$GH_ORGANIZATION_NAME/$GH_REPO_NAME"
 job("${folderName}/_lower/build") {
     wrappers {
         credentialsBinding {
+            string('DOCKER_REGISTRY', DOCKER_REGISTRY_KEY)
             usernamePassword('DOCKER_USERNAME', 'DOCKER_PASSWORD', DOCKER_USER_KEY)
         }
     }
