@@ -92,3 +92,7 @@ RUN mkdir warmup \
     && cd .. \
     && rm -rf warmup \
     && rm -rf /tmp/NuGetScratch
+
+# Copy and install libcurl
+COPY ../rpms/* /rpms
+
