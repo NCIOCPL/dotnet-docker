@@ -42,6 +42,9 @@ RUN curl -SL $DOTNET_DOWNLOAD_URL --output dotnet.tar.gz \
 # Copy and install libcurl
 COPY rpms/* /rpms/
 WORKDIR /rpms
-RUN yum localinstall --assumeyes cbiit-openssl1.0.2-k-1.el7.x86_64.rpm cbiit-openldap2.4-44-8.el7.x86_64.rpm cbiit-curl7-53.1-1.el7.x86_64.rpm
+RUN yum check && yum localinstall --assumeyes --exclude libcurl.otherarch --exclude libssh2.otherarch libnghttp2-1.7.1-1.el7.x86_64.rpm \
+                                 libssh2-1.8.0-2.0.cf.rhel7.x86_64.rpm libssh2-1.8.0-2.0.cf.rhel7.i686.rpm \
+                                 libpsl-0.7.0-1.el7.x86_64.rpm \
+                                 libcurl-7.53.1-7.0.cf.rhel7.x86_64.rpm libcurl-7.53.1-7.0.cf.rhel7.i686.rpm
 
-RUN ln -sf /usr/local/curl7/lib/libcurl.so.4.4.0 /lib64/libcurl.so.4
+# RUN ln -sf /usr/local/curl7/lib/libcurl.so.4.4.0 /lib64/libcurl.so.4
