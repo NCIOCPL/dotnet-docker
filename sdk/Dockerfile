@@ -3,9 +3,10 @@
 
 FROM cbiit/centos7:base
 
-
-RUN yum -y update
-RUN yum -y install \
+RUN rpm --rebuilddb \
+    && yum -y install epel-release \
+    && yum -y update \
+    && yum -y install \
 		tar.x86_64 \
 		gzip.x86_64 \
         autoconf \
@@ -49,6 +50,9 @@ RUN yum -y install \
         libicu \
         unzip \
     && yum clean all
+
+RUN rpm -Uvh http://www.city-fan.org/ftp/contrib/yum-repo/rhel6/x86_64/city-fan.org-release-1-13.rhel6.noarch.rpm \ 
+    && yum -y install libcurl
 
 # Work around https://github.com/dotnet/cli/issues/1582 until Docker releases a
 # fix (https://github.com/docker/docker/issues/20818). This workaround allows
@@ -94,5 +98,5 @@ RUN mkdir warmup \
     && rm -rf /tmp/NuGetScratch
 
 # Copy and install libcurl
-COPY ../rpms/* /rpms
+# COPY ../rpms/* /rpms
 
