@@ -51,7 +51,7 @@ RUN rpm --rebuilddb \
         unzip \
     && yum clean all
 
-RUN rpm -Uvh http://www.city-fan.org/ftp/contrib/yum-repo/rhel6/x86_64/city-fan.org-release-1-13.rhel6.noarch.rpm \ 
+RUN rpm -Uvh http://www.city-fan.org/ftp/contrib/yum-repo/rhel7/x86_64/city-fan.org-release-1-13.rhel7.noarch.rpm \ 
     && yum -y install libcurl
 
 # Work around https://github.com/dotnet/cli/issues/1582 until Docker releases a
