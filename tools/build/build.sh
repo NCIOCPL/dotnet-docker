@@ -15,13 +15,17 @@ if [ -z "$DOCKER_REGISTRY" ]; then echo DOCKER_REGISTRY not set; exit 1; fi
 
 #
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY
+if [ $? -ne 0 ]; then echo "Error logging into '$DOCKER_REGISTRY' as '$DOCKER_USERNAME'."; exit 1; fi
 
 
 builds=( "sdk" "runtime")
 for i in "${builds[@]}"
 do
     docker build -f $PROJECT_HOME/$i/Dockerfile -t $BASENAME:$i $i
+    if [ $? -ne 0 ]; then echo "Failed building '$BASENAME:$i' with '$PROJECT_HOME/$i/Dockerfile'."; exit 1; fi
+
     eval $SCRIPT_PATH/publish-docker-image.sh $BASENAME $i
+    if [ $? -ne 0 ]; then echo "Failed publishing '$BASENAME:$i'."; exit 1; fi
 done
 
 
