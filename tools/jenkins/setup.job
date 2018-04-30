@@ -2,8 +2,6 @@
     An easy-to-configure script to automate configuration of the more complex builds.
 */
 
-def folderName  = 'dotnet-images'    // Main folder where the jbos will be placed.
-
 def GH_REPO_NAME = 'dotnet-docker'    // The project's repository name (as used in the URL).
 def GH_ORGANIZATION_NAME = 'NCIOCPL'   // GitHub Organization name (as used in the URL/userid).
 def DOCKER_USER_KEY = 'NCIOCPL-Docker-User'  // Docker ID of the credential containing the login/password for the automation Docker Hub account.
@@ -13,8 +11,14 @@ def PROJECT_NAME = 'dotnet-docker'     // Project name.
 
 def sourceRepository = "$GH_ORGANIZATION_NAME/$GH_REPO_NAME"
 
+// Calculate the current folder path so the seed job is able to create jobs in the
+// current folder without the user remembering to set the context manually.
+// (Nested seed jobs - e.g. Create build job - do so by calling lookupStrategy.)
+def NAME_LENGTH = JOB_BASE_NAME.length()
+def FOLDER_PATH = JOB_NAME[0..((JOB_NAME.length() - NAME_LENGTH) - 2)] // Zero-based and remove trailing slash.
 
-job("${folderName}/_lower/build") {
+
+job("${FOLDER_PATH}/build") {
     wrappers {
         credentialsBinding {
             string('DOCKER_REGISTRY', DOCKER_REGISTRY_KEY)
